@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="search-form" method="POST">
+        <input id="search-input" type="text" name="query" placeholder="Zadejte vyhledávací dotaz">
+        <input type="submit" value="Hledat">
+    </form>
+
+    <div id="search-results"></div>
+
+    <script>
+        $("#search-form").on('submit', function(event) {
+            event.preventDefault(); // zabraňte odeslání formuláře
+
+            var search_term = $("#search-input").val(); // získejte hledaný výraz
+
+            $.ajax({
+                url: "/search",
+                type: "POST",
+                data: {
+                    query: search_term
+                },
+                success: function(response) {
+                    $("#search-results").html(response);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
